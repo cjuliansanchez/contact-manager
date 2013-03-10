@@ -9,14 +9,14 @@
 <h1>
 	Contacts  
 </h1>
-
+<a href="contacts/new">New Contact</a>
 <table border="1">
 	<tr>
 		<th>Name</th>
 	</tr>
 	<c:forEach var="contact" items="${contacts}">
 	<tr>
-		<td>  ${contact} </td>
+		<td>  ${contact.name} </td>
 	</tr>
 	</c:forEach>
 </table>

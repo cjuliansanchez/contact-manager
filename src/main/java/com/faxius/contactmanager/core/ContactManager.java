@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.faxius.contactmanager.domain.Contact;
 
@@ -18,6 +19,7 @@ public class ContactManager implements IContactManager {
 	}
 	
 	@Override
+	@Transactional
 	public void Save(Contact contact) {
 		 getCurrentSession().save(contact);
 	}

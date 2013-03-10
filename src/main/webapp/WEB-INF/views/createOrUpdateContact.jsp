@@ -1,5 +1,7 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -10,8 +12,10 @@
 	New Contact  
 </h1>
 
-<form modelAttribute="contact" id="add-contact-form">
-<label>Name</label>
-</form>
+<form:form modelAttribute="contact" method="post" id="add-contact-form">
+	<label>Name</label>
+	<form:input path="name"/>
+	<button type="submit">Add Contact</button>
+</form:form>
 </body>
 </html>
