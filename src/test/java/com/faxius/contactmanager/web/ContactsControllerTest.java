@@ -53,6 +53,7 @@ public class ContactsControllerTest {
 		this.contactManager.Save(contact);		
 	}
 	
+	/* First changes */
 	@Test
 	public void showContacts() throws Exception {
 		ResultActions result = this.mockMvc.perform(get("/contacts"));
