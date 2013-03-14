@@ -48,6 +48,7 @@ public class ContactsControllerTest {
 	
 	@Before
 	public void initData() {
+		/* Alalala */
 		Contact contact = new Contact();
 		contact.setName("Charly");
 		this.contactManager.Save(contact);		
