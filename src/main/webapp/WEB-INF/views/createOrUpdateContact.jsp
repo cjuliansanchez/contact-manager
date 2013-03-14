@@ -15,6 +15,8 @@
 <form:form modelAttribute="contact" method="post" id="add-contact-form">
 	<label>Name</label>
 	<form:input path="name"/>
+	<label>Last Name</label>
+	<form:input path="lastName"/>
 	<button type="submit">Add Contact</button>
 </form:form>
 </body>

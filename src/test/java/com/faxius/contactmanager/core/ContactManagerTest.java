@@ -24,6 +24,7 @@ public class ContactManagerTest {
 	public void canSaveContact(){	
 		Contact contact = new Contact();
 		contact.setName("Carlos");		
+		contact.setLastName("Sanchez");
 		contactManager.Save(contact);
 		
 		List<Contact> contacts = contactManager.getAll();

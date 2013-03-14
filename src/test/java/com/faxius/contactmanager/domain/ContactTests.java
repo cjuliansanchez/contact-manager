@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"domain-context.xml"})
@@ -20,15 +21,16 @@ public class ContactTests {
 	private SessionFactory sessionFactory;
 	
 	@Test
+	@Transactional
 	public void canSaveContact(){
-		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
+		Session session = sessionFactory.getCurrentSession();
 		
 		Contact contact = new Contact();
 		contact.setName("Carlos");
+		contact.setLastName("Sanchez");
 		session.save(contact);
 		
-		transaction.commit();		
+		session.flush();
 		session.clear();
 		
 		Contact dbContact01 = (Contact)session.get(Contact.class, contact.getId());
@@ -40,8 +42,5 @@ public class ContactTests {
 				.uniqueResult();
 		
 		Assert.assertEquals(contact, dbContact02);
-		session.clear();		
-		
-		session.close();
 	}
 }

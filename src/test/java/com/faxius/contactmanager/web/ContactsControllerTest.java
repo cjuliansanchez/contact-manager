@@ -47,14 +47,13 @@ public class ContactsControllerTest {
 	}
 	
 	@Before
-	public void initData() {
-		/* Alalala */
+	public void initData() {		
 		Contact contact = new Contact();
 		contact.setName("Charly");
+		contact.setLastName("Sanchez");
 		this.contactManager.Save(contact);		
-	}
+	}	
 	
-	/* First changes */
 	@Test
 	public void showContacts() throws Exception {
 		ResultActions result = this.mockMvc.perform(get("/contacts"));

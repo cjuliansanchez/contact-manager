@@ -6,5 +6,8 @@ import com.faxius.contactmanager.domain.Contact;
 
 public interface IContactManager {
 	List<Contact> getAll();
+	
 	void Save(Contact contact);
+	
+	Contact Get(String name, String lastName);
 }
