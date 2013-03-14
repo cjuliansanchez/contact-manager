@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.faxius.contactmanager.core.IContactManager;
 import com.faxius.contactmanager.domain.Contact;
@@ -29,11 +28,10 @@ public class ContactsController {
 	
 	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView showContacts() {
-		logger.info("Retrieving the list of contacts");
-		ModelAndView mav = new ModelAndView("contacts");
-		mav.addObject("contacts", contactManager.getAll());				
-		return mav;
+	public String showContacts(Model model) {
+		logger.info("Retrieving the list of contacts");		
+		model.addAttribute("contacts", contactManager.getAll());		
+		return "contacts";
 	}
 	
 	@RequestMapping(value = "/contacts/new", method = RequestMethod.GET)
