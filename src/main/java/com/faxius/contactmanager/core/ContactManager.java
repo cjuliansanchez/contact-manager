@@ -39,5 +39,5 @@ public class ContactManager implements IContactManager {
 				.add(Restrictions.eq("name", name))
 				.add(Restrictions.eq("lastName", lastName))
 				.uniqueResult();
-	}	
+	}
 }

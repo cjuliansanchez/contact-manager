@@ -37,6 +37,10 @@ public class Contact {
 		return lastName;
 	}
 
+	/**
+	 * 
+	 * @param lastName Contact's Last Name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}	
@@ -94,5 +98,9 @@ public class Contact {
 			return false;
 		return true;
 	}
-	
+
+	public void update(ContactDTO contactDTO) {
+		this.setName(contactDTO.getNewName());
+		this.setLastName(contactDTO.getNewLastName());
+	}	
 }

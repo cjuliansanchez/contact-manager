@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.faxius.contactmanager.core.IContactManager;
 import com.faxius.contactmanager.domain.Contact;
+import com.faxius.contactmanager.domain.ContactDTO;
 
 @Controller
 public class ContactsController {
@@ -40,13 +41,13 @@ public class ContactsController {
 	public String showCreateForm(Model model) {
 		Contact contact = new Contact();
 		model.addAttribute("contact", contact);		
-		return "createOrUpdateContact";
+		return "createContact";
 	}
 	
 	@RequestMapping(value = "/contacts/new", method = RequestMethod.POST)
 	public String saveNewContact(@Valid Contact contact, BindingResult result) {
 		if(result.hasErrors()){
-			return "createOrUpdateContact";
+			return "createContact";
 		}
 		
 		logger.info("Saving a new contact " + contact);
@@ -59,14 +60,33 @@ public class ContactsController {
 	public ModelAndView editContact(@RequestParam String name, @RequestParam String lastName) {		
 		logger.info("Going to edit contact. Name:  " + name + " LastName: " + lastName);		
 		Contact contact = contactManager.Get(name, lastName);
-		ModelAndView mav = new ModelAndView("createOrUpdateContact");
-		mav.addObject("contact", contact);
+		ModelAndView mav = new ModelAndView("editContact");
+		mav.addObject("contactDTO", ContactDTO.build(contact));
 		return mav;
 	}
 	
-	@RequestMapping(value = "/contacts/edit", method = RequestMethod.POST)
-	public String updateContact(@Valid Contact contact) {		
-		logger.info("Updating " + contact);		
+	@Transactional
+	@RequestMapping(value = "/contacts/edit", method = RequestMethod.POST)	
+	public String updateContact(@Valid ContactDTO contactDTO) throws Exception {		
+		logger.info("Updating " + contactDTO);
+		
+		if(!contactDTO.getNewName().equals(contactDTO.getCurrentLastName()) ||
+				!contactDTO.getNewLastName().equals(contactDTO.getCurrentName()))
+		{
+			Contact contact = this.contactManager.Get(contactDTO.getNewName(), contactDTO.getNewLastName());
+			if(contact != null) {
+				/* TODO: Handle this case properly */
+				throw new Exception("Name and Last name in use");
+			}
+		}
+		
+		Contact contact = this.contactManager.Get(contactDTO.getCurrentName(), contactDTO.getCurrentLastName());
+		if(contact == null) {
+			/* TODO: Handle this case properly */
+			throw new Exception("Contact not found");
+		}
+		
+		contact.update(contactDTO);				
 		return "redirect:/contacts";
 	}
 }

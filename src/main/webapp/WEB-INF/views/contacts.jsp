@@ -19,7 +19,7 @@
 			<tr>
 				<td>${contact.name}</td>
 				<td>${contact.lastName}</td>
-				<c:url var="editUrl" value="editContact">
+				<c:url var="editUrl" value="contacts/edit">
 					<c:param name="name" value="${contact.name}" />
 					<c:param name="lastName" value="${contact.lastName}" />
 				</c:url>
